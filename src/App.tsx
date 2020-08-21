@@ -5,8 +5,13 @@ import Total from './total';
 import History from './history';
 import AddTransaction from './AddTransaction';
 import { TransactionProvider } from './context';
+import firebase from './firebase';
 
 function App() {
+  const messaging=firebase.messaging();
+  messaging.requestPermission().then(()=>{
+    return messaging.getToken()
+  }).catch((err)=>{console.log('Error',err)})
   return (
     <TransactionProvider>
       <div className="mn">
