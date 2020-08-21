@@ -1,9 +1,9 @@
 import React from 'react';
 import { transReducer } from './reducer';
 
-let transactions:any = []
+let transactions:transaction[] = []
 
-export const context = React.createContext(transactions);
+export const context = React.createContext<context>({transactions:transactions, dispatch:null});
 
 export const TransactionProvider = ({children}:any)=>{
   let [red, dispatch] = React.useReducer(transReducer, transactions);

@@ -1,4 +1,4 @@
-export const transReducer = (state:any,action:any)=>{
+export const transReducer = (state:transaction[],action:action)=>{
     switch(action.type)
     {
         case "add":
