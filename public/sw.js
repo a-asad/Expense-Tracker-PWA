@@ -7,7 +7,10 @@ var urlsToCache = [
   '/static/js/0.chunk.js',
   '/static/js/main.chunk.js',
   '/sockjs-node',
-  'offline.html',
+  '/et.png',
+  '/manifest.json',
+  '/sw.js',
+  '/offline.html',
 ];
 
 self.addEventListener('install', function(event) {
@@ -20,31 +23,40 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      caches.match(event.request)
-        .then(function(response) {
-          if (response) {
-            return response;
-          }
-          return fetch(event.request).catch(()=>caches.match('offline.html'));
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        if (response) {
+          return response;
         }
-      )
-    );
-  });
+        return fetch(event.request)
+        .catch(()=>caches.match('offline.html'));
+      }
+    )
+  );
+});
 
-  self.addEventListener('activate', function(event) {
-
-    var cacheAllowlist = ['expense-tracker-cache-v1'];
+  // self.addEventListener('fetch', function(event) {
+  //   event.respondWith(
+  //     caches.match(event.request)
+  //       .then(function(response) {
+  //         if (response) {
+  //           return response;
+  //         }
   
-    event.waitUntil(
-      caches.keys().then(function(cacheNames) {
-        return Promise.all( 
-          cacheNames.map(function(cacheName) {
-            if (cacheAllowlist.indexOf(cacheName) === -1) {
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-    );
-  });
+  //         return fetch(event.request).then(
+  //           function(response) {
+  //             if(!response || response.status !== 200 || response.type !== 'basic') {
+  //               return response;
+  //             }
+  //             var responseToCache = response.clone();
+  //             caches.open(CACHE_NAME)
+  //               .then(function(cache) {
+  //                 cache.put(event.request, responseToCache);
+  //               });
+  //             return response;
+  //           }
+  //         );
+  //       })
+  //     );
+  // });
