@@ -2,11 +2,11 @@
 var CACHE_NAME = 'expense-tracker-cache-v1';
 
 var urlsToCache = [
-  '/',
   '/static/css/main.b1b794a2.chunk.css',
   '/static/js/main.4894409e.chunk.js',
   '/static/js/2.0bf25218.chunk.js',
   '/static/css/main.b1b794a2.chunk.css',
+  '/sw.js',
   '/index.html',
   '/et.png',
   '/et1.png',
