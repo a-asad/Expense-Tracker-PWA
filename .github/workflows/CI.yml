@@ -1,0 +1,30 @@
+name: ET PWA
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 13
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+         cmd: install
+      - name: Building React App
+        run: yarn build
+
+      - name: Deploy to netlify
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
+        with:
+          args: deploy --dir=build --prod
