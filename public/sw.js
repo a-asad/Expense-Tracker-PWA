@@ -2,14 +2,16 @@
 var CACHE_NAME = 'expense-tracker-cache-v1';
 
 var urlsToCache = [
-  '/',
-  '/static/js/bundle.js',
-  '/static/js/0.chunk.js',
-  '/static/js/main.chunk.js',
+  '/static/css/main.b1b794a2.chunk.css',
+  
+  '/static/js/main.4894409e.chunk.js',
+  '/static/js/2.0bf25218.chunk.js',
+  '/static/css/main.b1b794a2.chunk.css',
+  '/index.html',
   '/sockjs-node',
   '/et.png',
+  '/et1.png',
   '/manifest.json',
-  '/sw.js',
   '/offline.html',
 ];
 
@@ -30,7 +32,7 @@ self.addEventListener('fetch', function(event) {
           return response;
         }
         return fetch(event.request)
-        .catch(()=>caches.match('offline.html'));
+        .catch(()=>caches.match('/offline.html'));
       }
     )
   );
